@@ -1,40 +1,65 @@
 import express from "express";
-import { PORT } from "./config.js";
+import { PORT, mongoDBUrl } from "./config.js";
+import mongoose from "mongoose";
+import { Book } from './models/bookModel.js';
 
 const app = express();
+
+// Middleware for parsing request having JSON body 
+app.use(express.json());
+
+mongoose
+  .connect(mongoDBUrl)
+  .then(() => {
+    console.log("App is connected to Database");
+    app.listen(PORT, () => {
+      console.log(`App is listening to PORT: ${PORT}`);
+    });    
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
 app.get("/", (req, res)=> {
   res.status(200).send("ddd");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at PORT: ${PORT}`);
-});
-/*
-
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://root:root@book-store.bkd4vlm.mongodb.net/?retryWrites=true&w=majority&appName=book-store";
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-async function run() {
+//Route to save a new book
+app.post("/books", async (req, res) => {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    if (
+      !req.body.title ||
+      !req.body.author ||
+      !req.body.publishYear
+    ) {
+      return res.status(400).send({
+        message : 'Send all required fields: title, author, publishYear'
+      });
+    }
+
+    const newBook = {
+      title : req.body.title,
+      author : req.body.author,
+      publishYear : req.body.publishYear
+    }
+
+    const book = await Book.create(newBook);
+    return res.status(201).send(book);
+
+  } catch(error) {
+    console.error("Error in POST /books route", error);
+    res.status(500).send({ message : error.message });
   }
-}
-run().catch(console.dir);
-*/
+});
+
+
+
+process.on("SIGINT", async () => {
+  try {
+    await mongoose.disconnect();
+    console.log("Disconnected from Database");
+    process.exit(0);
+  } catch(error) {
+    console.error("Error in Process", error);
+  }
+});
