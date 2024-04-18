@@ -9,6 +9,18 @@ const app = express();
 // Middleware for parsing request having JSON body 
 app.use(express.json());
 
+//Middleware for handling CORS policy
+//Option 1 : Allow all origins with Default of Cors(*)
+// app.use(cors());
+//OPtion 2 : Allow custom origins
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+  })
+);
+
 mongoose
   .connect(mongoDBUrl)
   .then(() => {
