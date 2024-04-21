@@ -31,7 +31,7 @@ function CreateBook() {
       .catch(error => {
         setLoading(false);
         // alert("An error happened! Please check console.");
-        enqueueSnackbar('Error', {variant: 'error'});
+        enqueueSnackbar(error.message, {variant: 'error'});
         console.error(error);
       });
   }
@@ -48,6 +48,7 @@ function CreateBook() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
+            required
           />
         </div>
         <div className="my-4">
@@ -57,6 +58,7 @@ function CreateBook() {
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
+            required
           />
         </div>
         <div className="my-4">
@@ -66,6 +68,7 @@ function CreateBook() {
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
+            required
           />
         </div>
         <button className="p-2 bg-sky-300 m-8" onClick={handleSaveBook}>
