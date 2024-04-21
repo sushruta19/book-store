@@ -10,37 +10,37 @@ function BooksTable(props) {
         <tr>
           <th className="border border-slate-600 rounded-md">No</th>
           <th className="border border-slate-600 rounded-md">Title</th>
-          <th className="border border-slate-600 rounded-md">Author</th>
-          <th className="border border-slate-600 rounded-md max-md:hidden">
+          <th className="border border-slate-600 rounded-md max-sm:hidden">Author</th>
+          <th className="border border-slate-600 rounded-md max-sm:hidden">
             Publish Year
           </th>
           <th className="border border-slate-600 rounded-md">Operations</th>
         </tr>
       </thead>
       <tbody>
-        {props.books.map((book, index) => (
-          <tr key={book._id} className='h-8'>
+        {props.books.map((item, index) => (
+          <tr key={item._id} className='h-8'>
             <td className="border border-slate-700 rounded-md text-center">
               {index + 1}
             </td>
             <td className="border border-slate-700 rounded-md text-center">
-              {book.title}
+              {item.title}
             </td>
-            <td className="border border-slate-700 rounded-md text-center max-md:hidden">
-              {book.author}
+            <td className="border border-slate-700 rounded-md text-center max-sm:hidden">
+              {item.author}
             </td>
-            <td className="border border-slate-700 rounded-md text-center max-md:hidden">
-              {book.publishYear}
+            <td className="border border-slate-700 rounded-md text-center max-sm:hidden">
+              {item.publishYear}
             </td>
             <td className="border border-slate-700 rounded-md text-center">
               <div className="flex justify-center gap-x-4">
-                <Link to={`/books/details/${book._id}`}>
+                <Link to={`/books/details/${item._id}`}>
                   <BsInfoCircle className='text-2xl text-green-800' />
                 </Link>
-                <Link to={`/books/edit/${book._id}`}>
+                <Link to={`/books/edit/${item._id}`}>
                   <AiOutlineEdit className='text-2xl text-green-800' />
                 </Link>
-                <Link to={`/books/delete/${book._id}`}>
+                <Link to={`/books/delete/${item._id}`}>
                   <MdOutlineDelete className='text-2xl text-green-800' />
                 </Link>
               </div>
