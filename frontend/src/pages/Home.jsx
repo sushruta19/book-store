@@ -9,7 +9,10 @@ import BooksCard from "../components/home/BooksCard";
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showType, setShowType] = useState("table");
+  const [showType, setShowType] = useState(() => {
+    return localStorage.getItem("showType") || "table";
+  });
+
   useEffect(() => {
     axios
       .get("http://localhost:7000/books")
@@ -22,18 +25,22 @@ function Home() {
       });
   }, []);
 
+  const handleShowType = (type) => {
+    setShowType(type);
+    localStorage.setItem("showType", type);
+  }
   return (
     <div className="p-4">
       <div className="flex justify-center items-center gap-x-4">
         <button
           className="bg-sky-300 hover:bg-sky-600 px-4 py-1 rounded-lg"
-          onClick={() => setShowType("table")}
+          onClick={() => handleShowType("table")}
         >
           Table
         </button>
         <button
           className="bg-sky-300 hover:bg-sky-600 px-4 py-1 rounded-lg"
-          onClick={() => setShowType("card")}
+          onClick={() => handleShowType("card")}
         >
           Card
         </button>
