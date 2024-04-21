@@ -40,7 +40,7 @@ To run the project locally, follow these steps:
 
 2. Navigate to the `backend` folder and write down your mongdb cloud URL in config.js. This is how it will look. Write down your password in the `<password>` place. 
     ```
-    export const mongoDBUrl = 'mongodb+srv://root:<password>root@book-store.bkd4vlm.mongodb.net/books-collection?retryWrites=true&w=majority&appName=book-store';
+    export const mongoDBUrl = 'mongodb+srv://root:<password>@book-store.bkd4vlm.mongodb.net/books-collection?retryWrites=true&w=majority&appName=book-store';
     ```
 3. Install backend dependencies:
    ```
