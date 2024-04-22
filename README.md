@@ -17,14 +17,15 @@ The project is organized into backend and frontend components:
 
 ### Frontend
 - **Frontend Folder**:
-  - `public`: Directory containing static assets and HTML files.
+  - `public`: Directory containing static assets.
   - `src`: Directory containing React components and application logic.
     - `assets`: Directory containing images and icons.
     - `components`: Directory containing reusable React components.
     - `pages`: Directory containing page-level components for routing.
-    - `index.html`: HTML template for the React application.
+    - `App.jsx`: Main component for rendering the application.
     - `index.css`: Global CSS styles for the application.
     - `main.jsx`: Entry point for rendering the React application.
+  - `index.html`: HTML template for the React application.
   - `package.json`: Defines frontend dependencies and scripts.
 
 ## Installation
